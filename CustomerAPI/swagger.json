@@ -1,0 +1,131 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "title" : "CustomerAPI",
+    "version" : "1.0.0",
+    "description" : "CustomerAPI"
+  },
+  "paths" : {
+    "/nameEnquiry" : {
+      "get" : {
+        "operationId" : "getNameEnquiry",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful.",
+            "schema" : {
+              "$ref" : "#/definitions/ShowResults"
+            }
+          }
+        },
+        "produces" : [ "application/json" ],
+        "description" : "Retrieve nameEnquiry",
+        "parameters" : [ {
+          "name" : "accountnumber",
+          "in" : "query",
+          "type" : "number"
+        } ]
+      }
+    },
+    "/balanceEnquiry" : {
+      "get" : {
+        "operationId" : "getBalanceEnquiry",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful.",
+            "schema" : {
+              "$ref" : "#/definitions/ShowResults"
+            }
+          }
+        },
+        "produces" : [ "application/json" ],
+        "description" : "Retrieve balanceEnquiry",
+        "parameters" : [ {
+          "name" : "accountnumber",
+          "in" : "query",
+          "type" : "string"
+        } ]
+      }
+    },
+    "/transferCash" : {
+      "post" : {
+        "operationId" : "postTransferCash",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful.",
+            "schema" : {
+              "$ref" : "#/definitions/ShowResults"
+            }
+          }
+        },
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "description" : "Insert a transferCash",
+        "parameters" : [ {
+          "name" : "body",
+          "in" : "body",
+          "schema" : {
+            "$ref" : "#/definitions/TransferCashRequest"
+          },
+          "description" : "The request body for the operation",
+          "required" : true
+        } ]
+      }
+    },
+    "/reverseCash" : {
+      "post" : {
+        "operationId" : "postReverseCash",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful.",
+            "schema" : {
+              "$ref" : "#/definitions/ShowResults"
+            }
+          }
+        },
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "description" : "Insert a reverseCash",
+        "parameters" : [ {
+          "name" : "body",
+          "in" : "body",
+          "schema" : {
+            "$ref" : "#/definitions/TransferCashRequest"
+          },
+          "description" : "The request body for the operation",
+          "required" : true
+        } ]
+      }
+    }
+  },
+  "basePath" : "/customerapi/v1",
+  "definitions" : {
+    "ShowResults" : {
+      "type" : "object",
+      "properties" : {
+        "status" : {
+          "type" : "boolean"
+        },
+        "status_Message" : {
+          "type" : "string"
+        },
+        "status_code" : {
+          "type" : "string"
+        }
+      }
+    },
+    "TransferCashRequest" : {
+      "type" : "object",
+      "properties" : {
+        "debitaccountnumber" : {
+          "type" : "string"
+        },
+        "creditaccountnumber" : {
+          "type" : "string"
+        },
+        "amount" : {
+          "type" : "string"
+        }
+      }
+    }
+  }
+}

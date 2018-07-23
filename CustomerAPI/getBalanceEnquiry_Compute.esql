@@ -1,0 +1,43 @@
+
+
+CREATE COMPUTE MODULE getBalanceEnquiry_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE accountnumber, bank, query, query1 char;
+		
+		
+		SET accountnumber = InputLocalEnvironment.REST.Input.Parameters.accountnumber;
+		
+		
+			SET query = 'SELECT * FROM FCMB where accountnumber = ?';
+			SET Environment.results[] = PASSTHRU(query VALUES(accountnumber));
+			IF EXISTS(Environment.results[]) THEN
+			
+				IF Environment.results.accountstatus = 'active' THEN
+		 	SET OutputRoot.JSON.Data.status = True;
+		 	SET OutputRoot.JSON.Data.status_Message = Environment.results.accountbalance;
+		 	SET OutputRoot.JSON.Data.status_code = '07';
+		 	
+		 END IF;
+		 IF Environment.results.accountstatus = 'inactive' THEN
+		 	SET OutputRoot.JSON.Data.status = False;
+		 	SET OutputRoot.JSON.Data.status_Message = Environment.results.accountbalance;
+		 	SET OutputRoot.JSON.Data.status_code = '04';
+		 	
+		 END IF;
+			 IF Environment.results.accountstatus = 'suspended' THEN
+		 	SET OutputRoot.JSON.Data.status = False;
+		 	SET OutputRoot.JSON.Data.status_Message = Environment.results.accountbalance;
+		 	SET OutputRoot.JSON.Data.status_code = '02';
+		 	
+		 END IF;
+		
+			ELSE
+				SET OutputRoot.JSON.Data.status = False;
+		 		SET OutputRoot.JSON.Data.status_Message = 'Invalid Account number';
+		 		SET OutputRoot.JSON.Data.status_code = '03';
+			END IF;
+		
+		RETURN TRUE;
+	END;
+END MODULE;

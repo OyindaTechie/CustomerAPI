@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:restapiDescriptor xmlns="http://com.ibm.etools.mft.descriptor.base" xmlns:ns2="http://com.ibm.etools.mft.descriptor.restapi" definitionType="swagger_20" definitionFile="swagger.json" implementation="gen/CustomerAPI.msgflow" https="false">
+    <ns2:operations>
+        <ns2:operation name="getBalanceEnquiry" implementation="getBalanceEnquiry.subflow"/>
+        <ns2:operation name="getNameEnquiry" implementation="getNameEnquiry.subflow"/>
+        <ns2:operation name="postReverseCash" implementation="postReverseCash.subflow"/>
+        <ns2:operation name="postTransferCash" implementation="postTransferCash.subflow"/>
+    </ns2:operations>
+    <ns2:errorHandlers/>
+</ns2:restapiDescriptor>
